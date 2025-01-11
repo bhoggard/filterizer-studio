@@ -1,9 +1,11 @@
 import { defineField, defineType } from 'sanity'
+import { MarkerIcon } from '@sanity/icons'
 
 export const venueType = defineType({
   name: 'venue',
   title: 'Venue',
   type: 'document',
+  icon: MarkerIcon,
   fields: [
     defineField({
       name: 'name',
@@ -30,7 +32,7 @@ export const venueType = defineType({
           allowRelative: true,
           scheme: ['http', 'https'],
         })
-    ]
+      ]
     }),
   ],
 })
