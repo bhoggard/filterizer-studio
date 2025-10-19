@@ -22,12 +22,18 @@ export const eventType = defineType({
       name: 'startDate',
       title: 'Start Date',
       type: 'date',
+      options: {
+        displayTimeZone: 'America/New_York',
+      },
       validation: rule => rule.required()
     }),
     defineField({
       name: 'endDate',
       title: 'End Date',
       type: 'date',
+      options: {
+        displayTimeZone: 'America/New_York',
+      },
       validation: rule => rule.required()
     }),
     defineField({
