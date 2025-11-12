@@ -1,11 +1,15 @@
 import { defineField, defineType } from 'sanity'
 import { MarkerIcon } from '@sanity/icons'
+import { VenueEventsField } from '../components/VenueEventsField'
 
 export const venueType = defineType({
   name: 'venue',
   title: 'Venue',
   type: 'document',
   icon: MarkerIcon,
+  components: {
+    input: VenueEventsField,
+  },
   fields: [
     defineField({
       name: 'name',
