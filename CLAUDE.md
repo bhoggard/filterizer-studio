@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Sanity Studio instance for "Filterizer" - a content management system for tracking events, venues, and neighborhoods. The project uses Sanity v4 with TypeScript and React.
+This is a Sanity Studio instance for "Filterizer" - a content management system for tracking events, venues, and neighborhoods. The project uses Sanity Studio v6 with TypeScript and React 19.
 
 **Sanity Project Details:**
 - Project ID: `ng5yto4p`
@@ -26,8 +26,11 @@ yarn deploy
 # Deploy GraphQL API
 yarn deploy-graphql
 
+# Deploy the schema manifest (required for Dashboard / Content Agent)
+yarn deploy-schema
+
 # Generate TypeScript types from schemas
-sanity typegen generate
+yarn typegen
 ```
 
 ## Architecture
@@ -46,7 +49,7 @@ The studio defines three interconnected content types located in `/schemaTypes/`
 
 3. **Event** (`eventType.ts`) - Time-based occurrences
    - References a venue
-   - Uses date fields with America/New_York timezone for display
+   - Uses `date` fields (no time component, so no timezone applies)
    - Start and end dates are required
 
 Schema types are aggregated in `schemaTypes/index.ts` and imported into `sanity.config.ts`.
@@ -56,7 +59,7 @@ Schema types are aggregated in `schemaTypes/index.ts` and imported into `sanity.
 TypeScript types are auto-generated from schemas:
 - Configuration: `sanity-typegen.json`
 - Generated types: `src/sanity/types.ts` (DO NOT EDIT MANUALLY)
-- Run `sanity typegen generate` after schema changes
+- Run `yarn typegen` (`sanity schema extract` + `sanity typegen generate`) after schema changes
 
 ### Configuration Files
 
@@ -75,7 +78,13 @@ Project uses Prettier with custom settings (defined in package.json):
 
 ## Important Notes
 
-- All date fields use `America/New_York` timezone for display purposes
+- Requires Node.js >= 22.12 (Sanity Studio v6 / Sanity CLI baseline)
+- Icons must be imported from their own subpath (`@sanity/icons/Calendar`), not the
+  `@sanity/icons` root entry, which stopped exporting individual icons in v5
+- `@sanity/ui` v4 renamed the `space` prop on layout components (`Stack`, `Flex`, `Grid`,
+  `Inline`) to `gap`
 - Auto-updates are enabled for the studio deployment
 - The project uses Yarn with Yarn Berry (v3+) as indicated by `.yarnrc.yml`
-- When modifying schemas, always run `sanity typegen generate` to update TypeScript types
+- When modifying schemas, always run `yarn typegen` to update TypeScript types
+- After a schema change, run `yarn deploy` (then open the hosted Studio once) or
+  `yarn deploy-schema` so Dashboard features such as Content Agent see the current schema
