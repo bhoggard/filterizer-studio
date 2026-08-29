@@ -62,12 +62,12 @@ export function VenueEvents({ venueId }: VenueEventsProps) {
 
   return (
     <Card padding={4} radius={2} shadow={1}>
-      <Stack space={4}>
+      <Stack gap={4}>
         <Heading size={1}>Events at this venue ({events.length})</Heading>
-        <Stack space={3}>
+        <Stack gap={3}>
           {events.map((event) => (
             <Card key={event._id} padding={3} radius={2} shadow={1} tone="default">
-              <Stack space={2}>
+              <Stack gap={2}>
                 <Flex justify="space-between" align="center">
                   <Text weight="semibold">
                     <IntentLink

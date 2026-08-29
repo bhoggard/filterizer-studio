@@ -12,7 +12,57 @@
  * ---------------------------------------------------------------------------------
  */
 
-// Source: schema.json
+export declare const internalGroqTypeReferenceTo: unique symbol
+
+// Source: src/sanity/extract.json
+export type VenueReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'venue'
+}
+
+export type Event = {
+  _id: string
+  _type: 'event'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name?: string
+  venue?: VenueReference
+  startDate?: string
+  endDate?: string
+  website?: string
+}
+
+export type NeighborhoodReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'neighborhood'
+}
+
+export type Venue = {
+  _id: string
+  _type: 'venue'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name?: string
+  neighborhood?: NeighborhoodReference
+  address?: string
+  website?: string
+}
+
+export type Neighborhood = {
+  _id: string
+  _type: 'neighborhood'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name?: string
+}
+
 export type SanityImagePaletteSwatch = {
   _type: 'sanity.imagePaletteSwatch'
   background?: string
@@ -37,6 +87,18 @@ export type SanityImageDimensions = {
   height?: number
   width?: number
   aspectRatio?: number
+}
+
+export type SanityImageMetadata = {
+  _type: 'sanity.imageMetadata'
+  location?: Geopoint
+  dimensions?: SanityImageDimensions
+  palette?: SanityImagePalette
+  lqip?: string
+  blurHash?: string
+  thumbHash?: string
+  hasAlpha?: boolean
+  isOpaque?: boolean
 }
 
 export type SanityImageHotspot = {
@@ -77,6 +139,13 @@ export type SanityFileAsset = {
   source?: SanityAssetSourceData
 }
 
+export type SanityAssetSourceData = {
+  _type: 'sanity.assetSourceData'
+  name?: string
+  id?: string
+  url?: string
+}
+
 export type SanityImageAsset = {
   _id: string
   _type: 'sanity.imageAsset'
@@ -100,17 +169,6 @@ export type SanityImageAsset = {
   source?: SanityAssetSourceData
 }
 
-export type SanityImageMetadata = {
-  _type: 'sanity.imageMetadata'
-  location?: Geopoint
-  dimensions?: SanityImageDimensions
-  palette?: SanityImagePalette
-  lqip?: string
-  blurHash?: string
-  hasAlpha?: boolean
-  isOpaque?: boolean
-}
-
 export type Geopoint = {
   _type: 'geopoint'
   lat?: number
@@ -124,70 +182,20 @@ export type Slug = {
   source?: string
 }
 
-export type SanityAssetSourceData = {
-  _type: 'sanity.assetSourceData'
-  name?: string
-  id?: string
-  url?: string
-}
-
-export type Event = {
-  _id: string
-  _type: 'event'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name?: string
-  venue?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'venue'
-  }
-  startDate?: string
-  endDate?: string
-  website?: string
-}
-
-export type Venue = {
-  _id: string
-  _type: 'venue'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name?: string
-  neighborhood?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'neighborhood'
-  }
-  address?: string
-  website?: string
-}
-
-export type Neighborhood = {
-  _id: string
-  _type: 'neighborhood'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name?: string
-}
-
 export type AllSanitySchemaTypes =
+  | VenueReference
+  | Event
+  | NeighborhoodReference
+  | Venue
+  | Neighborhood
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
+  | SanityImageMetadata
   | SanityImageHotspot
   | SanityImageCrop
   | SanityFileAsset
+  | SanityAssetSourceData
   | SanityImageAsset
-  | SanityImageMetadata
   | Geopoint
   | Slug
-  | SanityAssetSourceData
-  | Event
-  | Venue
-  | Neighborhood
-export declare const internalGroqTypeReferenceTo: unique symbol

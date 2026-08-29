@@ -1,5 +1,5 @@
 import { defineField, defineType } from 'sanity'
-import { CalendarIcon } from '@sanity/icons'
+import { CalendarIcon } from '@sanity/icons/Calendar'
 
 export const eventType = defineType({
   name: 'event',
@@ -22,18 +22,12 @@ export const eventType = defineType({
       name: 'startDate',
       title: 'Start Date',
       type: 'date',
-      options: {
-        displayTimeZone: 'America/New_York',
-      },
       validation: rule => rule.required()
     }),
     defineField({
       name: 'endDate',
       title: 'End Date',
       type: 'date',
-      options: {
-        displayTimeZone: 'America/New_York',
-      },
       validation: rule => rule.required()
     }),
     defineField({
